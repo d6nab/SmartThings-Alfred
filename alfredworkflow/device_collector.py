@@ -35,7 +35,7 @@ def device_collector(query = ""):
             
         for device in jsonData:
             labelElseName = device['name'] if len(device['label']) == 0 else device['label']
-            arg = "{deviceId}.{command}".format(deviceId=device['id'], command=command)
+            arg = "{app_Id}.{deviceId}.{command}".format(app_Id=appId, deviceId=device['id'], command=command)
             feedback.add_item(device['label'], device['name'], arg, executable, labelElseName)
     
     
