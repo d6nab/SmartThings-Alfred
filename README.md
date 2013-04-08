@@ -15,3 +15,14 @@ An Alfred Workflow that works with a SmartThings SmartApp
 * `st ` will collect the devices specified in all of your installed smartapp instances
 * `st <device_name> on` will turn on your device. (it's easiest to down-arrow to select your device)
 * `st <device_name> off` will turn off your device. (it's easiest to down-arrow to select your device)
+
+
+#Updating the workflow#
+1. Open Alfred Preferences `cmd+space` (or whatever you have set to open alfred) followed by `cmd+,`
+2. In the `Workflows` section, select `SmartThings`, then select the `-` at the bottom to remove the workflow
+3. In the project directory, run the `bundle.sh` script
+4. double-click the `SmartThings.alfredworkflow` file to install it
+
+
+#Logging while developing#
+Alfred doesn't give you any output that I know of. I have been creating an `output.txt` file and writing my logs to that. To find the installed directory, open `Alfred Preferences`, double-click any of the script steps, and select `Open workflow folder` from the bottom-right of the window.
