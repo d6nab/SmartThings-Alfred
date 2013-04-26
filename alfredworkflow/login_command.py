@@ -1,39 +1,28 @@
-import json
-import urllib
-import urllib2
-import string
 from Feedback import Feedback
+import os.path
+import httplib
 
-def login_command(query = ""):
+
+def login_command(query=""):
     try:
-        with open('email.txt'): pass
-    except IOError:
-        tmp = open("email.txt", "w")
-        tmp.close()
-    
+        conn = httplib.HTTPConnection("localhost", 2222)
+        conn.request("GET", "/success")
+        response = conn.getresponse()
+        data = response.read()
+        conn.close()
+    except Exception, err:
+        pass
+
     feedback = Feedback()
-    # feedback.add_item('works')
 
-    output = open("output.txt", "w")
-    output.write(query)
-
-    eFile = open("email.txt")
-    e = eFile.read()
-    eFile.close
-
-    output.write("email : ")
-    output.write(e)
-    output.write("\nlength: ")
-    output.write(str(e.__len__()))
-
-    output.close()
-
-    if e.__len__() == 0:
-        arg = "email:{email}".format(email=query)
-        feedback.add_item('Email', 'Enter your email address', arg)
-        return feedback
+    if os.path.isfile("token.txt"):
+        tokenFile = open("token.txt")
+        token = tokenFile.read()
+        tokenFile.close()
+        if token.__len__() > 0:
+            feedback.add_item("You are already authenticated with SmartThings")
+            return feedback
     else:
-        arg = "password:{password}".format(password=query)
-        feedback.add_item('Password', 'Your password will not be stored', arg)
-        # feedback.add_item('like a charm')
+        feedback.add_item("Authenticate with SmartThings",
+                          "You will be forwarded to https://www.smartthings.com")
         return feedback

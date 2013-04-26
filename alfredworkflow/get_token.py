@@ -17,7 +17,7 @@ def get_token(query = ""):
         email = emailFile.read()
         emailFile.close()
         args = string.split(tmp, ":")
-        
+
         url = "http://graph.api.smartthings.com/oauth/token"
         values = {'grant_type' : 'password',
           'client_id' : 'ios',
@@ -33,7 +33,7 @@ def get_token(query = ""):
         response = urllib2.urlopen(req)
         the_page = response.read()
         jsonData = json.loads(the_page)
-        
+
         token = jsonData["access_token"]
         authHeader = open("token.txt", "w")
         authHeader.write("Bearer ")
@@ -41,12 +41,12 @@ def get_token(query = ""):
         authHeader.close()
 
         get_smart_app_ids()
-        
+
         return "Logged in to the Alfred SmartApp" # this tells the next step that we're finished
-        
+
     return
-    
-    
+
+
 def get_smart_app_ids():
     output = open("output.txt", "w")
     output.write("CALLED METHOD!!!")
@@ -55,12 +55,12 @@ def get_smart_app_ids():
     url = 'http://graph.api.smartthings.com/api/smartapps/installations'
     req = urllib2.Request(url)
     authHeader = open("token.txt")
-    req.add_header('Authorization', authHeader.read())
-    
+    req.add_header('Authorization', "Bearer %s" % authHeader.read())
+
     response = urllib2.urlopen(req)
     the_page = response.read()
     jsonData = json.loads(the_page)
-    
+
     # store "Alfred Workflow" smartApp id
     alfredAppId = open("smartAppIds.txt", "w")
     for app in jsonData:

@@ -6,20 +6,7 @@
 	<string>com.smartthings.alfred</string>
 	<key>connections</key>
 	<dict>
-		<key>272967B5-A417-41C9-B002-4AC4049A8C3D</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>7A5077A9-E3D6-4D3D-B74A-57EFBF6C68C7</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-		<key>39E547C3-9C21-49BF-8166-616DE7121A39</key>
-		<array/>
-		<key>7A5077A9-E3D6-4D3D-B74A-57EFBF6C68C7</key>
+		<key>185FBDF4-6EB5-43BB-BE69-A06013624351</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -38,6 +25,29 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>272967B5-A417-41C9-B002-4AC4049A8C3D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>185FBDF4-6EB5-43BB-BE69-A06013624351</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>39E547C3-9C21-49BF-8166-616DE7121A39</key>
+		<array/>
+		<key>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</key>
+		<array/>
 		<key>C2B981D2-D95C-47A9-8982-019137F568F4</key>
 		<array>
 			<dict>
@@ -74,25 +84,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>63</integer>
-				<key>script</key>
-				<string>from get_token import get_token
-
-print(get_token("{query}"))</string>
-				<key>type</key>
-				<integer>3</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>7A5077A9-E3D6-4D3D-B74A-57EFBF6C68C7</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -100,13 +93,13 @@ print(get_token("{query}"))</string>
 				<key>script</key>
 				<string>from login_command import login_command
 
-print(login_command("{query}"))</string>
+print(login_command())</string>
 				<key>title</key>
 				<string>SmartThings Login</string>
 				<key>type</key>
 				<integer>3</integer>
 				<key>withspace</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -116,19 +109,79 @@ print(login_command("{query}"))</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>http://localhost:8080/data-management/oauth/authorize?response_type=code&amp;client_id=myclient&amp;redirect_uri=http://localhost:2222/oauth/callback&amp;scope=app</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>escaping</key>
-				<integer>63</integer>
+				<integer>62</integer>
 				<key>script</key>
-				<string>from execute_command import execute_command
+				<string>set temp to "{query}"
+set temp to do shell script "echo " &amp; quoted form of temp &amp; "| tr -d '\\r\\n' "
 
-print(execute_command("{query}"))</string>
+if temp is "" then
+	tell application "Alfred 2" to search "st_login "
+else
+	do shell script "python getSmartAppId.py"
+end if</string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.script</string>
+			<key>uid</key>
+			<string>11C42622-3B43-409F-98B3-AD66FD0BCF4B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<true/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<true/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>SmartThings</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>7CFDA33D-D8FE-4F0A-818B-588C0B587F28</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>from oauth_http import *
+
+print(start_server())</string>
 				<key>type</key>
 				<integer>3</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>39E547C3-9C21-49BF-8166-616DE7121A39</string>
+			<string>185FBDF4-6EB5-43BB-BE69-A06013624351</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -146,6 +199,39 @@ print(execute_command("{query}"))</string>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>C2B981D2-D95C-47A9-8982-019137F568F4</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>rm email.txt
+rm token.txt</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>57860455-BE78-4561-969A-9A674F5EDD9B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>from execute_command import execute_command
+
+print(execute_command("{query}"))</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>39E547C3-9C21-49BF-8166-616DE7121A39</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -176,67 +262,6 @@ print(device_collector("{query}"))</string>
 			<key>uid</key>
 			<string>E682EA43-C1D7-462C-ADBD-EF3A09CAEB3D</string>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<true/>
-				<key>onlyshowifquerypopulated</key>
-				<true/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<true/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>SmartThings</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>7CFDA33D-D8FE-4F0A-818B-588C0B587F28</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>62</integer>
-				<key>script</key>
-				<string>set temp to "{query}"
-set temp to do shell script "echo " &amp; quoted form of temp &amp; "| tr -d '\\r\\n' "
-
-if temp is "" then
-	tell application "Alfred 2" to search "st_login "
-else
-	do shell script "python getSmartAppId.py"
-end if</string>
-				<key>type</key>
-				<integer>6</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.script</string>
-			<key>uid</key>
-			<string>11C42622-3B43-409F-98B3-AD66FD0BCF4B</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>63</integer>
-				<key>script</key>
-				<string>rm email.txt
-rm token.txt</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>57860455-BE78-4561-969A-9A674F5EDD9B</string>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -247,6 +272,11 @@ rm token.txt</string>
 			<key>ypos</key>
 			<real>20</real>
 		</dict>
+		<key>185FBDF4-6EB5-43BB-BE69-A06013624351</key>
+		<dict>
+			<key>ypos</key>
+			<real>140</real>
+		</dict>
 		<key>272967B5-A417-41C9-B002-4AC4049A8C3D</key>
 		<dict>
 			<key>ypos</key>
@@ -255,32 +285,32 @@ rm token.txt</string>
 		<key>39E547C3-9C21-49BF-8166-616DE7121A39</key>
 		<dict>
 			<key>ypos</key>
-			<real>360</real>
+			<real>380</real>
 		</dict>
 		<key>57860455-BE78-4561-969A-9A674F5EDD9B</key>
 		<dict>
 			<key>ypos</key>
-			<real>200</real>
-		</dict>
-		<key>7A5077A9-E3D6-4D3D-B74A-57EFBF6C68C7</key>
-		<dict>
-			<key>ypos</key>
-			<real>20</real>
+			<real>260</real>
 		</dict>
 		<key>7CFDA33D-D8FE-4F0A-818B-588C0B587F28</key>
 		<dict>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
+		<key>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</key>
+		<dict>
+			<key>ypos</key>
+			<real>20</real>
+		</dict>
 		<key>C2B981D2-D95C-47A9-8982-019137F568F4</key>
 		<dict>
 			<key>ypos</key>
-			<real>200</real>
+			<real>260</real>
 		</dict>
 		<key>E682EA43-C1D7-462C-ADBD-EF3A09CAEB3D</key>
 		<dict>
 			<key>ypos</key>
-			<real>360</real>
+			<real>380</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
