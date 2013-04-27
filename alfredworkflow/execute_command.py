@@ -4,11 +4,11 @@ import string
 
 def execute_command(query=""):
     args = string.split(query, ".")
-    appId = args[0]
-    deviceId = args[1]
-    command = args[2]
+    url = args[0]
+    command = args[1]
 
-    url = "http://graph.api.smartthings.com/api/smartapps/installations/{app_Id}/switches/{device_Id}".format(app_Id=appId, device_Id=deviceId)
+    url = "https://graph.api.smartthings.com{url}".format(url=url)
+    print url
     request = ""
     if command == "on":
         request = urllib2.Request(url, data='{"command":"on"}')

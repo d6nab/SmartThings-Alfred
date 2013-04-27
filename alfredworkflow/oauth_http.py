@@ -7,8 +7,8 @@ import json
 HOST_NAME = 'localhost'
 PORT_NUMBER = 2222
 
-CLIENT_ID = 'myclient'
-CLIENT_SECRET = 'mysecret'
+CLIENT_ID = 'cb87b758-af81-11e2-981c-9989e5deaab7'
+CLIENT_SECRET = 'e06c70fa-af81-11e2-981c-9989e5deaab7'
 
 
 class StoppableHttpServer(BaseHTTPServer.HTTPServer):
@@ -47,8 +47,8 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'application/json'
             }
-            conn = httplib.HTTPConnection("localhost", 8080)
-            conn.request("POST", "/data-management/oauth/token",
+            conn = httplib.HTTPSConnection("graph.api.smartthings.com", 443)
+            conn.request("POST", "/oauth/token",
                          urllib.urlencode(oauth_params), oauth_headers)
             response = conn.getresponse()
             data = response.read()

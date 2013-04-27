@@ -112,7 +112,7 @@ print(login_command())</string>
 				<key>plusspaces</key>
 				<false/>
 				<key>url</key>
-				<string>http://localhost:8080/data-management/oauth/authorize?response_type=code&amp;client_id=myclient&amp;redirect_uri=http://localhost:2222/oauth/callback&amp;scope=app</string>
+				<string>https://graph.api.smartthings.com/oauth/authorize?response_type=code&amp;client_id=cb87b758-af81-11e2-981c-9989e5deaab7&amp;redirect_uri=http://localhost:2222/oauth/callback&amp;scope=app</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -133,7 +133,7 @@ set temp to do shell script "echo " &amp; quoted form of temp &amp; "| tr -d '\\
 if temp is "" then
 	tell application "Alfred 2" to search "st_login "
 else
-	do shell script "python getSmartAppId.py"
+	do shell script "python getEndpoints.py"
 end if</string>
 				<key>type</key>
 				<integer>6</integer>
@@ -206,8 +206,8 @@ print(start_server())</string>
 				<key>escaping</key>
 				<integer>63</integer>
 				<key>script</key>
-				<string>rm email.txt
-rm token.txt</string>
+				<string>rm token.txt
+rm endpoints.txt</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -243,7 +243,7 @@ print(execute_command("{query}"))</string>
 				<key>keyword</key>
 				<string>st</string>
 				<key>runningsubtext</key>
-				<string>collecting devices</string>
+				<string>Collecting devices...</string>
 				<key>script</key>
 				<string>from device_collector import device_collector
 
@@ -255,7 +255,7 @@ print(device_collector("{query}"))</string>
 				<key>type</key>
 				<integer>3</integer>
 				<key>withspace</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
