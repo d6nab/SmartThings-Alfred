@@ -1,7 +1,7 @@
 SmartThings-Alfred
 ======================
 
-An Alfred Workflow that allows you to control your physical graph through Alfred
+An Alfred Workflow that allows you to control your physical graph through Alfred V2 (http://www.alfredapp.com)
 
 
 #Currently Supported Commands#
