@@ -1,11 +1,8 @@
-AlfredSmartAppWorkflow
+SmartThings-Alfred
 ======================
 
-An Alfred Workflow that works with a SmartThings SmartApp
+An Alfred Workflow that allows you to control your physical graph through Alfred
 
-
-#To install#
-* Install the "Alfred Workflow" SmartApp from the Connections category on your mobile device.  Choose the switches that you wish to be controllable through Alfred.
 
 #Currently Supported Commands#
 * `st_login` will take you through the login process
