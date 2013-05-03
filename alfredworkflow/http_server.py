@@ -70,7 +70,7 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.send_response(404)
 
 
-def start_server():
+def start():
     httpd = StoppableHttpServer((HOST_NAME, PORT_NUMBER), StoppableHttpRequestHandler)
     print "Starting embedded HTTP server"
     httpd.serve_forever()

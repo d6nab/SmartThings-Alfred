@@ -1,4 +1,4 @@
-from Feedback import Feedback
+from alfred import Feedback
 import os.path
 import httplib
 
@@ -8,7 +8,7 @@ def login_command(query=""):
         conn = httplib.HTTPConnection("localhost", 2222)
         conn.request("GET", "/success")
         response = conn.getresponse()
-        data = response.read()
+        response.read()
         conn.close()
     except Exception, err:
         pass
@@ -20,9 +20,9 @@ def login_command(query=""):
         token = tokenFile.read()
         tokenFile.close()
         if token.__len__() > 0:
-            feedback.add_item("You are already authenticated with SmartThings")
+            feedback.addItem(title="You are already authenticated with SmartThings")
             return feedback
     else:
-        feedback.add_item("Authenticate with SmartThings",
-                          "You will be forwarded to https://www.smartthings.com")
+        feedback.addItem(title="Authenticate with SmartThings",
+                         subtitle="You will be forwarded to https://www.smartthings.com")
         return feedback

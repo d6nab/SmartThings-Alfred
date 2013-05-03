@@ -1,7 +1,7 @@
 import json
 import urllib2
 import string
-from Feedback import Feedback
+from alfred import Feedback
 
 
 def device_collector(query=""):
@@ -10,10 +10,9 @@ def device_collector(query=""):
     args = string.split(query, " ")
 
     command = args[-1]
-    executable = 'no'
+    executable = False
     if command == 'on' or command == 'off':
-        executable = 'yes'
-    # feedback.add_item(command) # for testing
+        executable = True
 
     tokenFile = open("token.txt")
     token = tokenFile.read()
@@ -36,6 +35,6 @@ def device_collector(query=""):
                     labelElseName = device['name'] if len(device['label']) == 0 else device['label']
                     arg = "{endpoint}/switches/{device_id}.{command}".format(endpoint=endpoint, device_id=device['id'], command=command)
                     title = "Turn {command} {device}".format(command=command, device=device['label']) if command.__len__() > 1 else device['label']
-                    feedback.add_item(title, device['name'], arg, executable, labelElseName)
+                    feedback.addItem(title=title, subtitle=device['name'], arg=arg, valid=executable, autocomplete=labelElseName)
 
     return feedback

@@ -72,7 +72,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>@bearduino</string>
+	<string>SmartThings</string>
 	<key>description</key>
 	<string>Control your physical graph</string>
 	<key>disabled</key>
@@ -133,7 +133,7 @@ set temp to do shell script "echo " &amp; quoted form of temp &amp; "| tr -d '\\
 if temp is "" then
 	tell application "Alfred 2" to search "st_login "
 else
-	do shell script "python getEndpoints.py"
+	do shell script "python get_endpoints.py"
 end if</string>
 				<key>type</key>
 				<integer>6</integer>
@@ -172,9 +172,9 @@ end if</string>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>from oauth_http import *
+				<string>from http_server import *
 
-print(start_server())</string>
+print(start())</string>
 				<key>type</key>
 				<integer>3</integer>
 			</dict>
