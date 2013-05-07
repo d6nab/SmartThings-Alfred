@@ -3,12 +3,7 @@ import urllib
 import urlparse
 import BaseHTTPServer, SimpleHTTPServer
 import json
-
-HOST_NAME = 'localhost'
-PORT_NUMBER = 2222
-
-CLIENT_ID = 'cb87b758-af81-11e2-981c-9989e5deaab7'
-CLIENT_SECRET = 'e06c70fa-af81-11e2-981c-9989e5deaab7'
+from settings import SERVER_PORT, PROTOCOL, HOSTNAME, PORT, CLIENT_ID, CLIENT_SECRET
 
 
 class StoppableHttpServer(BaseHTTPServer.HTTPServer):
@@ -40,14 +35,15 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                 'client_id': CLIENT_ID,
                 'client_secret': CLIENT_SECRET,
                 'scope': 'app',
-                'redirect_uri': 'http://localhost:2222/oauth/callback',
+                'redirect_uri': "http://localhost:{port}/oauth/callback".format(port=SERVER_PORT),
                 'code': params['code']
             }
             oauth_headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'application/json'
             }
-            conn = httplib.HTTPSConnection("graph.api.smartthings.com", 443)
+            connection = httplib.HTTPSConnection if PROTOCOL == "https" else httplib.HTTPConnection
+            conn = connection(HOSTNAME, PORT)
             conn.request("POST", "/oauth/token",
                          urllib.urlencode(oauth_params), oauth_headers)
             response = conn.getresponse()
@@ -63,7 +59,7 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
             # Redirect so we can shut down the HTTP server
             self.send_response(301)
-            self.send_header("Location", "http://localhost:2222/success")
+            self.send_header("Location", "http://localhost:{port}/success".format(port=SERVER_PORT))
             self.end_headers()
         else:
             print "%s not found" % self.path
@@ -71,6 +67,16 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
 
 def start():
-    httpd = StoppableHttpServer((HOST_NAME, PORT_NUMBER), StoppableHttpRequestHandler)
+    httpd = StoppableHttpServer(("localhost", SERVER_PORT), StoppableHttpRequestHandler)
     print "Starting embedded HTTP server"
     httpd.serve_forever()
+
+def stop():
+    try:
+        conn = httplib.HTTPConnection("localhost", SERVER_PORT)
+        conn.request("GET", "/success")
+        response = conn.getresponse()
+        response.read()
+        conn.close()
+    except Exception, err:
+        pass

@@ -1,5 +1,6 @@
 import urllib2
 import string
+from settings import PROTOCOL, HOSTNAME
 
 
 def execute_command(query=""):
@@ -7,8 +8,7 @@ def execute_command(query=""):
     url = args[0]
     command = args[1]
 
-    url = "https://graph.api.smartthings.com{url}".format(url=url)
-    print url
+    url = "{protocol}://{hostname}{url}".format(protocol=PROTOCOL, hostname=HOSTNAME, url=url)
     request = ""
     if command == "on":
         request = urllib2.Request(url, data='{"command":"on"}')

@@ -1,17 +1,10 @@
 from alfred import Feedback
 import os.path
-import httplib
+from http_server import stop
 
 
 def login_command(query=""):
-    try:
-        conn = httplib.HTTPConnection("localhost", 2222)
-        conn.request("GET", "/success")
-        response = conn.getresponse()
-        response.read()
-        conn.close()
-    except Exception, err:
-        pass
+    stop()
 
     feedback = Feedback()
 

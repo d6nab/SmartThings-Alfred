@@ -2,9 +2,13 @@ import json
 import urllib2
 import string
 from alfred import Feedback
+from settings import PROTOCOL, HOSTNAME
+from http_server import stop
 
 
 def device_collector(query=""):
+    stop()
+
     feedback = Feedback()
 
     args = string.split(query, " ")
@@ -23,7 +27,7 @@ def device_collector(query=""):
             if endpoint.__len__() > 1:
                 ### collect devices for each endpoint
                 endpoint = endpoint.strip()
-                url = "https://graph.api.smartthings.com%s/switches" % endpoint
+                url = "{protocol}://{hostname}{endpoint}/switches".format(protocol=PROTOCOL, hostname=HOSTNAME, endpoint=endpoint)
 
                 req = urllib2.Request(url)
                 req.add_header('Authorization', "Bearer %s" % token)

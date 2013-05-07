@@ -1,8 +1,9 @@
 import json
 import urllib2
+from settings import PROTOCOL, HOSTNAME
 
 
-url = 'https://graph.api.smartthings.com/api/smartapps/endpoints'
+url = "{protocol}://{hostname}/api/smartapps/endpoints".format(protocol=PROTOCOL, hostname=HOSTNAME)
 req = urllib2.Request(url)
 token = open("token.txt")
 req.add_header('Authorization', "Bearer %s" % token.read())
