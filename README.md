@@ -32,4 +32,6 @@ To find the installed directory, open `Alfred Preferences`, double-click any of 
 Alfred doesn't give you any output that I know of. I have been creating an `output.txt` file and writing my logs to that. The `output.txt` file will be created in the `installed directory`.
 
 ###Editing###
-You may find it easier to make changes directly in the `installed directory` because any changes you make there will be reflected in Alfred immediately. Just make sure you don't copy any generated files back to your git directory (or at the very least don't commit them). We like to keep things clean :)
+You may find it easier to make changes directly in the `installed directory` because any changes you make there will be reflected in Alfred immediately. Just make sure you don't copy any generated files back to your git directory (or at the very least don't commit them). We like to keep things clean :)  
+  
+If you do edit in the installed directory, backup your installed directory and update the workflow using the steps above one last time before committing and test thoroughly. You'd hate to have missed something.
