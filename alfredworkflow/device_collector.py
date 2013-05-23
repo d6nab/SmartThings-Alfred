@@ -14,12 +14,21 @@ def device_collector(query=""):
     args = string.split(query, " ")
 
     command = args[-1]
-    if command.__len__() < 1:
+    if len(command) < 1:
         command = args[-2]
-        
+
     executable = False
     if command == 'on' or command == 'off':
         executable = True
+    else:
+        command = ''
+    
+    deviceFilter = ''
+    for currentArg in args:
+        if currentArg != command:
+            deviceFilter += ' {ca}'.format(ca=currentArg)
+
+    deviceFilter = deviceFilter.strip()
 
     tokenFile = open("token.txt")
     token = tokenFile.read()
@@ -37,11 +46,15 @@ def device_collector(query=""):
                 response = urllib2.urlopen(req)
                 the_page = response.read()
                 jsonData = json.loads(the_page)
-
-                for device in jsonData:
+                
+                for device in jsonData:                        
                     labelElseName = device['name'] if len(device['label']) == 0 else device['label']
+                    if len(deviceFilter) > 0:
+                        if not deviceFilter in labelElseName:
+                            continue
+
                     arg = "{endpoint}/switches/{device_id}.{command}".format(endpoint=endpoint, device_id=device['id'], command=command)
-                    title = "Turn {command} {device}".format(command=command, device=device['label']) if command.__len__() > 1 else device['label']
-                    feedback.addItem(title=title, subtitle=device['name'], arg=arg, valid=executable, autocomplete=labelElseName)
+                    title = "Turn {command} {device}".format(command=command, device=device['label']) if command.__len__() > 1 else labelElseName
+                    feedback.addItem(title=title, subtitle=device['name'], arg=arg, valid=executable, autocomplete=' {l}'.format(l=labelElseName))
 
     return feedback
