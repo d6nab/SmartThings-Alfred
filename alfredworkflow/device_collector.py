@@ -50,7 +50,7 @@ def device_collector(query=""):
                 for device in jsonData:                        
                     labelElseName = device['name'] if len(device['label']) == 0 else device['label']
                     if len(deviceFilter) > 0:
-                        if not deviceFilter in labelElseName:
+                        if not deviceFilter.lower() in labelElseName.lower():
                             continue
 
                     arg = "{endpoint}/switches/{device_id}.{command}".format(endpoint=endpoint, device_id=device['id'], command=command)
