@@ -14,6 +14,9 @@ def device_collector(query=""):
     args = string.split(query, " ")
 
     command = args[-1]
+    if command.__len__() < 1:
+        command = args[-2]
+        
     executable = False
     if command == 'on' or command == 'off':
         executable = True
