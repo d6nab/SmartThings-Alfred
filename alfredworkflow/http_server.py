@@ -20,8 +20,11 @@ class StoppableHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             print "Stopping embedded HTTP server"
             self.send_response(200)
             self.end_headers()
-            self.wfile.write("<html><head><title>Authentication success!</title></head>")
-            self.wfile.write("<body>Authentication was successful.</body></html>")
+            try:
+                self.wfile.write(open("login_success.html").read())
+            except IOError:
+                self.wfile.write("<html><head><title>Authentication success!</title></head>")
+                self.wfile.write("<body>Authentication was successful. Remember to run <b>st_update</b> in Alfred.</body></html>")
             self.server.stop = True
         elif "/oauth/callback" in self.path:
             print "Received OAuth callback"
