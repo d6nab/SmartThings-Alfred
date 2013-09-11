@@ -46,6 +46,17 @@
 		</array>
 		<key>39E547C3-9C21-49BF-8166-616DE7121A39</key>
 		<array/>
+		<key>8A57075C-05FE-4CF4-8DEF-8508529657DB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BB169064-EAF6-4604-A88D-760DC63E5113</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</key>
 		<array/>
 		<key>C2B981D2-D95C-47A9-8982-019137F568F4</key>
@@ -53,6 +64,17 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>57860455-BE78-4561-969A-9A674F5EDD9B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DDF45308-6750-447C-AE68-1D06794F620D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8A57075C-05FE-4CF4-8DEF-8508529657DB</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -84,6 +106,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>https://graph.api.smartthings.com/oauth/authorize?response_type=code&amp;client_id=cb87b758-af81-11e2-981c-9989e5deaab7&amp;redirect_uri=http://localhost:2222/oauth/callback&amp;scope=app</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>escaping</key>
@@ -105,21 +144,8 @@ print(login_command())</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>272967B5-A417-41C9-B002-4AC4049A8C3D</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>plusspaces</key>
-				<false/>
-				<key>url</key>
-				<string>https://graph.api.smartthings.com/oauth/authorize?response_type=code&amp;client_id=cb87b758-af81-11e2-981c-9989e5deaab7&amp;redirect_uri=http://localhost:2222/oauth/callback&amp;scope=app</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -142,6 +168,8 @@ end if</string>
 			<string>alfred.workflow.output.script</string>
 			<key>uid</key>
 			<string>11C42622-3B43-409F-98B3-AD66FD0BCF4B</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -165,6 +193,8 @@ end if</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>7CFDA33D-D8FE-4F0A-818B-588C0B587F28</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -182,6 +212,8 @@ print(start())</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>185FBDF4-6EB5-43BB-BE69-A06013624351</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -199,6 +231,8 @@ print(start())</string>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>C2B981D2-D95C-47A9-8982-019137F568F4</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -215,6 +249,8 @@ rm endpoints.txt</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>57860455-BE78-4561-969A-9A674F5EDD9B</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -232,6 +268,8 @@ print(execute_command("{query}"))</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>39E547C3-9C21-49BF-8166-616DE7121A39</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -261,6 +299,73 @@ print(device_collector("{query}"))</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>E682EA43-C1D7-462C-ADBD-EF3A09CAEB3D</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>from refresh_devices import refresh_devices
+
+print(refresh_devices())</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8A57075C-05FE-4CF4-8DEF-8508529657DB</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>st_update</string>
+				<key>subtext</key>
+				<string>This should be done every time you update permissions or rename your devices</string>
+				<key>text</key>
+				<string>Update Your Local Device Cache</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DDF45308-6750-447C-AE68-1D06794F620D</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<true/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<true/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>SmartThings</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>BB169064-EAF6-4604-A88D-760DC63E5113</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -297,15 +402,30 @@ print(device_collector("{query}"))</string>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
+		<key>8A57075C-05FE-4CF4-8DEF-8508529657DB</key>
+		<dict>
+			<key>ypos</key>
+			<real>500</real>
+		</dict>
 		<key>BA02A9B8-0F34-4247-8DA6-C9EA16B03BEF</key>
 		<dict>
 			<key>ypos</key>
 			<real>20</real>
 		</dict>
+		<key>BB169064-EAF6-4604-A88D-760DC63E5113</key>
+		<dict>
+			<key>ypos</key>
+			<real>500</real>
+		</dict>
 		<key>C2B981D2-D95C-47A9-8982-019137F568F4</key>
 		<dict>
 			<key>ypos</key>
 			<real>260</real>
+		</dict>
+		<key>DDF45308-6750-447C-AE68-1D06794F620D</key>
+		<dict>
+			<key>ypos</key>
+			<real>500</real>
 		</dict>
 		<key>E682EA43-C1D7-462C-ADBD-EF3A09CAEB3D</key>
 		<dict>

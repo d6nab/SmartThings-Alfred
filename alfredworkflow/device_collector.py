@@ -17,8 +17,16 @@ def device_collector(query=""):
     if len(command) < 1:
         command = args[-2]
 
-    executable = False
-    if command == 'on' or command == 'off':
+    switchCommandsFile = open("commands.switches.txt")
+    switchCommands = switchCommandsFile.read()
+    switchCommandsFile.close()
+    
+    lockCommandsFile = open("commands.locks.txt")
+    lockCommands = lockCommandsFile.read()
+    lockCommandsFile.close()
+    
+    executable = False    
+    if command in switchCommands or command in lockCommands:
         executable = True
     else:
         command = ''
@@ -35,26 +43,30 @@ def device_collector(query=""):
     tokenFile.close()
 
     with open("endpoints.txt", 'r') as fh:
-        for endpoint in fh.readlines():
-            if endpoint.__len__() > 1:
-                ### collect devices for each endpoint
-                endpoint = endpoint.strip()
-                url = "{protocol}://{hostname}{endpoint}/switches".format(protocol=PROTOCOL, hostname=HOSTNAME, endpoint=endpoint)
-
-                req = urllib2.Request(url)
-                req.add_header('Authorization', "Bearer %s" % token)
-                response = urllib2.urlopen(req)
-                the_page = response.read()
-                jsonData = json.loads(the_page)
+        try:
+            deviceFile = open("devices.txt")
+            for deviceDataString in deviceFile.readlines():
+                deviceData = string.split(deviceDataString, ":")
+                deviceEndpoint = deviceData[0].strip()
+                deviceLabel = deviceData[1].strip()
+    
+                if len(deviceFilter) > 0:
+                    if not deviceFilter.lower() in deviceLabel.lower():
+                        continue
+    
+                arg = "{deviceEndpoint}.{command}".format(deviceEndpoint=deviceEndpoint, command=command)
                 
-                for device in jsonData:                        
-                    labelElseName = device['name'] if len(device['label']) == 0 else device['label']
-                    if len(deviceFilter) > 0:
-                        if not deviceFilter.lower() in labelElseName.lower():
-                            continue
-
-                    arg = "{endpoint}/switches/{device_id}.{command}".format(endpoint=endpoint, device_id=device['id'], command=command)
-                    title = "Turn {command} {device}".format(command=command, device=device['label']) if command.__len__() > 1 else labelElseName
-                    feedback.addItem(title=title, subtitle=device['name'], arg=arg, valid=executable, autocomplete=' {l}'.format(l=labelElseName))
-
+                title = deviceLabel
+                if command.__len__() > 1:
+                    if command in switchCommands:
+                        title = "Turn {command} {device}".format(command=command, device=deviceLabel)
+                    else:
+                        title = "{command} {device}".format(command=command.capitalize(), device=deviceLabel)
+    
+                feedback.addItem(title=title, subtitle=deviceLabel, arg=arg, valid=executable, autocomplete=' {l}'.format(l=deviceLabel))
+            
+            deviceFile.close()
+        except IOError:
+            print "Uh oh"
+    
     return feedback

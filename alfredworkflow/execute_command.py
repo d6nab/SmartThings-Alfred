@@ -9,11 +9,9 @@ def execute_command(query=""):
     command = args[1]
 
     url = "{protocol}://{hostname}{url}".format(protocol=PROTOCOL, hostname=HOSTNAME, url=url)
-    request = ""
-    if command == "on":
-        request = urllib2.Request(url, data='{"command":"on"}')
-    else:
-        request = urllib2.Request(url, data='{"command":"off"}')
+    
+    requestBody = '{"command":"' + "{command}".format(command=command) + '"}'
+    request = urllib2.Request(url, data=requestBody)
 
     tokenFile = open("token.txt")
     token = tokenFile.read()
