@@ -4,12 +4,33 @@ SmartThings-Alfred
 An Alfred Workflow that allows you to control your physical graph through Alfred V2 (http://www.alfredapp.com)
 
 
-#Currently Supported Commands#
+#Keywords#
 * `st_login` will take you through the login process
 * `st_logout` will destroy your auth token
-* `st ` will collect the devices specified in all of your installed smartapp instances
-* `st on`, followed by selecting the desired device, will turn it on
-* `st off`, followed by selecting the desired device, will turn it off
+* `st_update` will collect the devices specified in all of your installed smartapp instances and update your local device cache. 
+	- This needs to be done every time you change permissions, rename a device, etc.
+* `st` (without a space) will put the `st_login`, `st_logout`, and `st_update` in the search list and allow you to select them
+* `st ` (with a space)  will display the devices specified in all of your installed smartapp instances 
+	- remember to use st_update first
+* `st <command> <device>` will send `<command>` to your `<device>`
+	- example: `st on lamp` will turn on your lamp
+* `st <device> <command>` will send `<command>` to your `<device>`
+	- example: `st lamp off` will turn off your lamp
+
+
+#Currently Supported Devices#
+* switch
+* lock
+
+
+#Currently Supported Commands#
+* switch
+	- `on`
+	- `off`
+* lock
+	- `lock`
+	- `unlock`
+	- `refresh`
 
 
 #Installing the most recent version#
