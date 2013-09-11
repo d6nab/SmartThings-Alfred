@@ -25,9 +25,10 @@ def device_collector(query=""):
     lockCommands = lockCommandsFile.read()
     lockCommandsFile.close()
     
-    executable = False    
+    executable = False
     if command in switchCommands or command in lockCommands:
-        executable = True
+        if len(command) > 0:
+            executable = True
     else:
         command = ''
     
